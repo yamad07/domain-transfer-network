@@ -103,7 +103,6 @@ class Trainer:
                 shift_1_img_vector = decoded_svhn_img[:, -1]
                 be_tensor_1 = shift_1_img_vector.unsqueeze(1)
                 generated_img_1 = torch.cat((shift_1_img, be_tensor_1), dim=1)
-                # G(x)と, G(x)をdim1でずらしたやつの差を計算
                 j_gap = F.mse_loss(decoded_svhn_img, generated_img_1)
                 tv_loss = torch.pow(
                     (i_gap + j_gap),

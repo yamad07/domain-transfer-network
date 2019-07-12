@@ -13,9 +13,9 @@ class MNISTToSVHN(Dataset):
 
     def __init__(self, mnist_img_dir, svhn_img_dir):
         self.train_mnist_img, self.train_mnist_labels = self._load_mnist(
-                mnist_img_dir)
+            mnist_img_dir)
         self.train_svhn_img, self.train_svhn_labels = self._load_svhn(
-                svhn_img_dir)
+            svhn_img_dir)
         self.mnist_img_list = glob.glob(mnist_img_dir + "/*.jpg")  # 100
         self.svhn_img_list = glob.glob(svhn_img_dir + "/*.jpg")  # 10
         self.svhn_transforms = transforms.Compose([
@@ -28,11 +28,11 @@ class MNISTToSVHN(Dataset):
     def __getitem__(self, index):
 
         mnist_img = self.mnist_transforms(
-                torch.Tensor(self.train_mnist_img[index]))
+            torch.Tensor(self.train_mnist_img[index]))
         mnist_img = mnist_img.expand(3, 32, 32)
         mnist_label = self.train_mnist_labels[index]
         svhn_img = self.svhn_transforms(
-                torch.Tensor(self.train_svhn_img[index]))
+            torch.Tensor(self.train_svhn_img[index]))
         svhn_label = self.train_svhn_labels[index]
         return svhn_img.float(), svhn_label, mnist_img.float(), mnist_label
 
